@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KayitYapanlarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="iletisim">
+    <Key>
+      <PropertyRef Name="iletisimID" />
+    </Key>
+    <Property Name="iletisimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kayitID" Type="Int32" Nullable="false" />
+    <Property Name="tur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="bilgi" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="kayit_table" Relationship="Self.FK_iletisim_kayit_table" FromRole="iletisim" ToRole="kayit_table" />
+  </EntityType>
+  <EntityType Name="kayit_table">
+    <Key>
+      <PropertyRef Name="kayitID" />
+    </Key>
+    <Property Name="kayitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="adiniz" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="soyadiniz" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TCKN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="hasar_bilgisi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="beklentiniz_nedir" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="iletisim" Relationship="Self.FK_iletisim_kayit_table" FromRole="kayit_table" ToRole="iletisim" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="dbo_giris">
+    <Key>
+      <PropertyRef Name="k_no" />
+    </Key>
+    <Property Name="k_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="k_ad" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="k_sifre" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_iletisim_kayit_table">
+    <End Role="kayit_table" Type="Self.kayit_table" Multiplicity="1" />
+    <End Role="iletisim" Type="Self.iletisim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kayit_table">
+        <PropertyRef Name="kayitID" />
+      </Principal>
+      <Dependent Role="iletisim">
+        <PropertyRef Name="kayitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KayitYapanlarEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="iletisim" EntityType="Self.iletisim" />
+    <EntitySet Name="kayit_table" EntityType="Self.kayit_table" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="dbo_giris" EntityType="Self.dbo_giris" />
+    <AssociationSet Name="FK_iletisim_kayit_table" Association="Self.FK_iletisim_kayit_table">
+      <End Role="kayit_table" EntitySet="kayit_table" />
+      <End Role="iletisim" EntitySet="iletisim" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

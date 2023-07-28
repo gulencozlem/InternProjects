@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WEB_SİTESİ.Models.kayit_table>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Kayıt Arama</h2>
+<br />
+@using (Html.BeginForm())
+            {
+                <p>
+                    TC ile Ara : @Html.TextBox("p")
+                    <input type="submit" value="Ara"/>
+                </p>
+            }
+       
+       <br /><br /><br /><br /><br />
+       
+<p>
+    @Html.ActionLink("Yeni Kayıt", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.adiniz)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.soyadiniz)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TCKN)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.adiniz)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.soyadiniz)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TCKN)
+        </td>
+        <td>
+            @Html.ActionLink("Düzenle", "Edit", new { id=item.kayitID }, new { @class = "btn btn-success" }) |
+            @Html.ActionLink("Detaylar", "Details", new { id=item.kayitID }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Sil", "Delete", new { id=item.kayitID }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

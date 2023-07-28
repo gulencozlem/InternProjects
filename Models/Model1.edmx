@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KayitYapanlarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KayitYapanlar.dbo.dbo.giris' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="dbo_giris">
+          <Key>
+            <PropertyRef Name="k_no" />
+          </Key>
+          <Property Name="k_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="k_ad" Type="nchar" MaxLength="20" />
+          <Property Name="k_sifre" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="iletisim">
+          <Key>
+            <PropertyRef Name="iletisimID" />
+          </Key>
+          <Property Name="iletisimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kayitID" Type="int" Nullable="false" />
+          <Property Name="tur" Type="varchar" MaxLength="50" />
+          <Property Name="bilgi" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="kayit_table">
+          <Key>
+            <PropertyRef Name="kayitID" />
+          </Key>
+          <Property Name="kayitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adiniz" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="soyadiniz" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TCKN" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adres" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="hasar_bilgisi" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="beklentiniz_nedir" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_iletisim_kayit_table">
+          <End Role="kayit_table" Type="Self.kayit_table" Multiplicity="1" />
+          <End Role="iletisim" Type="Self.iletisim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kayit_table">
+              <PropertyRef Name="kayitID" />
+            </Principal>
+            <Dependent Role="iletisim">
+              <PropertyRef Name="kayitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KayitYapanlarModelStoreContainer">
+          <EntitySet Name="iletisim" EntityType="Self.iletisim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kayit_table" EntityType="Self.kayit_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="dbo_giris" EntityType="Self.dbo_giris" store:Type="Tables" store:Schema="dbo" store:Name="dbo.giris">
+            <DefiningQuery>SELECT 
+    [dbo_giris].[k_no] AS [k_no], 
+    [dbo_giris].[k_ad] AS [k_ad], 
+    [dbo_giris].[k_sifre] AS [k_sifre]
+    FROM [dbo].[dbo.giris] AS [dbo_giris]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_iletisim_kayit_table" Association="Self.FK_iletisim_kayit_table">
+            <End Role="kayit_table" EntitySet="kayit_table" />
+            <End Role="iletisim" EntitySet="iletisim" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KayitYapanlarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="iletisim">
+          <Key>
+            <PropertyRef Name="iletisimID" />
+          </Key>
+          <Property Name="iletisimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kayitID" Type="Int32" Nullable="false" />
+          <Property Name="tur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="bilgi" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="kayit_table" Relationship="Self.FK_iletisim_kayit_table" FromRole="iletisim" ToRole="kayit_table" />
+        </EntityType>
+        <EntityType Name="kayit_table">
+          <Key>
+            <PropertyRef Name="kayitID" />
+          </Key>
+          <Property Name="kayitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adiniz" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="soyadiniz" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TCKN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adres" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hasar_bilgisi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="beklentiniz_nedir" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="iletisim" Relationship="Self.FK_iletisim_kayit_table" FromRole="kayit_table" ToRole="iletisim" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="dbo_giris">
+          <Key>
+            <PropertyRef Name="k_no" />
+          </Key>
+          <Property Name="k_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="k_ad" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="k_sifre" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_iletisim_kayit_table">
+          <End Role="kayit_table" Type="Self.kayit_table" Multiplicity="1" />
+          <End Role="iletisim" Type="Self.iletisim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kayit_table">
+              <PropertyRef Name="kayitID" />
+            </Principal>
+            <Dependent Role="iletisim">
+              <PropertyRef Name="kayitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KayitYapanlarEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="iletisim" EntityType="Self.iletisim" />
+          <EntitySet Name="kayit_table" EntityType="Self.kayit_table" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="dbo_giris" EntityType="Self.dbo_giris" />
+          <AssociationSet Name="FK_iletisim_kayit_table" Association="Self.FK_iletisim_kayit_table">
+            <End Role="kayit_table" EntitySet="kayit_table" />
+            <End Role="iletisim" EntitySet="iletisim" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KayitYapanlarModelStoreContainer" CdmEntityContainer="KayitYapanlarEntities">
+          <EntitySetMapping Name="iletisim">
+            <EntityTypeMapping TypeName="KayitYapanlarModel.iletisim">
+              <MappingFragment StoreEntitySet="iletisim">
+                <ScalarProperty Name="iletisimID" ColumnName="iletisimID" />
+                <ScalarProperty Name="kayitID" ColumnName="kayitID" />
+                <ScalarProperty Name="tur" ColumnName="tur" />
+                <ScalarProperty Name="bilgi" ColumnName="bilgi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kayit_table">
+            <EntityTypeMapping TypeName="KayitYapanlarModel.kayit_table">
+              <MappingFragment StoreEntitySet="kayit_table">
+                <ScalarProperty Name="kayitID" ColumnName="kayitID" />
+                <ScalarProperty Name="adiniz" ColumnName="adiniz" />
+                <ScalarProperty Name="soyadiniz" ColumnName="soyadiniz" />
+                <ScalarProperty Name="TCKN" ColumnName="TCKN" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="hasar_bilgisi" ColumnName="hasar_bilgisi" />
+                <ScalarProperty Name="beklentiniz_nedir" ColumnName="beklentiniz_nedir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KayitYapanlarModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dbo_giris">
+            <EntityTypeMapping TypeName="KayitYapanlarModel.dbo_giris">
+              <MappingFragment StoreEntitySet="dbo_giris">
+                <ScalarProperty Name="k_no" ColumnName="k_no" />
+                <ScalarProperty Name="k_ad" ColumnName="k_ad" />
+                <ScalarProperty Name="k_sifre" ColumnName="k_sifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

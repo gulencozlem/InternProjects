@@ -1,0 +1,65 @@
+﻿@model WEB_SİTESİ.Models.kayit_table
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Kayıt Detayları</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.adiniz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adiniz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.soyadiniz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.soyadiniz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TCKN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TCKN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.adres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hasar_bilgisi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hasar_bilgisi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.beklentiniz_nedir)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.beklentiniz_nedir)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.kayitID }) |
+    @Html.ActionLink("Kayıt Listesine Gİt", "Index")
+</p>

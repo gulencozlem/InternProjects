@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KayitYapanlarModelStoreContainer" CdmEntityContainer="KayitYapanlarEntities">
+    <EntitySetMapping Name="iletisim">
+      <EntityTypeMapping TypeName="KayitYapanlarModel.iletisim">
+        <MappingFragment StoreEntitySet="iletisim">
+          <ScalarProperty Name="iletisimID" ColumnName="iletisimID" />
+          <ScalarProperty Name="kayitID" ColumnName="kayitID" />
+          <ScalarProperty Name="tur" ColumnName="tur" />
+          <ScalarProperty Name="bilgi" ColumnName="bilgi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="kayit_table">
+      <EntityTypeMapping TypeName="KayitYapanlarModel.kayit_table">
+        <MappingFragment StoreEntitySet="kayit_table">
+          <ScalarProperty Name="kayitID" ColumnName="kayitID" />
+          <ScalarProperty Name="adiniz" ColumnName="adiniz" />
+          <ScalarProperty Name="soyadiniz" ColumnName="soyadiniz" />
+          <ScalarProperty Name="TCKN" ColumnName="TCKN" />
+          <ScalarProperty Name="adres" ColumnName="adres" />
+          <ScalarProperty Name="hasar_bilgisi" ColumnName="hasar_bilgisi" />
+          <ScalarProperty Name="beklentiniz_nedir" ColumnName="beklentiniz_nedir" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="KayitYapanlarModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dbo_giris">
+      <EntityTypeMapping TypeName="KayitYapanlarModel.dbo_giris">
+        <MappingFragment StoreEntitySet="dbo_giris">
+          <ScalarProperty Name="k_no" ColumnName="k_no" />
+          <ScalarProperty Name="k_ad" ColumnName="k_ad" />
+          <ScalarProperty Name="k_sifre" ColumnName="k_sifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

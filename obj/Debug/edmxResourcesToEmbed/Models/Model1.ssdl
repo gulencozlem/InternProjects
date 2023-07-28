@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KayitYapanlarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'KayitYapanlar.dbo.dbo.giris' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="dbo_giris">
+    <Key>
+      <PropertyRef Name="k_no" />
+    </Key>
+    <Property Name="k_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="k_ad" Type="nchar" MaxLength="20" />
+    <Property Name="k_sifre" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="iletisim">
+    <Key>
+      <PropertyRef Name="iletisimID" />
+    </Key>
+    <Property Name="iletisimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kayitID" Type="int" Nullable="false" />
+    <Property Name="tur" Type="varchar" MaxLength="50" />
+    <Property Name="bilgi" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="kayit_table">
+    <Key>
+      <PropertyRef Name="kayitID" />
+    </Key>
+    <Property Name="kayitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="adiniz" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="soyadiniz" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="TCKN" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="adres" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="hasar_bilgisi" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="beklentiniz_nedir" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_iletisim_kayit_table">
+    <End Role="kayit_table" Type="Self.kayit_table" Multiplicity="1" />
+    <End Role="iletisim" Type="Self.iletisim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kayit_table">
+        <PropertyRef Name="kayitID" />
+      </Principal>
+      <Dependent Role="iletisim">
+        <PropertyRef Name="kayitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="KayitYapanlarModelStoreContainer">
+    <EntitySet Name="iletisim" EntityType="Self.iletisim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="kayit_table" EntityType="Self.kayit_table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dbo_giris" EntityType="Self.dbo_giris" store:Type="Tables" store:Schema="dbo" store:Name="dbo.giris">
+      <DefiningQuery>SELECT 
+    [dbo_giris].[k_no] AS [k_no], 
+    [dbo_giris].[k_ad] AS [k_ad], 
+    [dbo_giris].[k_sifre] AS [k_sifre]
+    FROM [dbo].[dbo.giris] AS [dbo_giris]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_iletisim_kayit_table" Association="Self.FK_iletisim_kayit_table">
+      <End Role="kayit_table" EntitySet="kayit_table" />
+      <End Role="iletisim" EntitySet="iletisim" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
